@@ -60,18 +60,4 @@ switchport port-security maximum 2
 ip verify source port-security
 exit
 
-         
-line con 0
- exec-timeout 0 0
- privilege level 15
- logging synchronous
- stopbits 1
-line aux 0
- exec-timeout 0 0
- privilege level 15
- logging synchronous
- stopbits 1
-line vty 0 4
- login    
-     
-end
+
