@@ -53,20 +53,3 @@ switchport trunk allowed vlan add 10,20,30,40
 exit
 
 
-
-
-interface Vlan1
- no ip address
- shutdown
-interface Vlan10
- no ip address
- ip helper-address 10.1.30.1 
- shutdown
-interface Vlan20
- no ip address
- ip helper-address 10.1.30.1 
- shutdown
-interface Vlan40
- no ip address
- ip helper-address 10.1.30.1 
- shutdown
