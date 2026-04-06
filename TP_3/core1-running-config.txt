@@ -44,3 +44,19 @@ switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk allowed vlan add 10,20,30,40
 exit
+
+         
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login    
+     
+end
