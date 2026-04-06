@@ -1,6 +1,6 @@
 config t
 
-hostname access3
+hostname access3.tp1.efrei
 
 vlan 10
 name admins
