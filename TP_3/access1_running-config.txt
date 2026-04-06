@@ -1,74 +1,64 @@
+conf t
 
-hostname access1
-       
-ip arp inspection vlan 10,20,30,40
-no ip icmp rate-limit unreachable
-        
-ip dhcp snooping vlan 10,20,30,40
+hostname access1.tp1.efrei
+
+vlan 10
+name admins
+exit
+vlan 20
+name clients
+exit
+vlan 30
+name servers
+exit
+vlan 40
+name guests
+exit
+
+interface Ethernet 0/0
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan add 10,20,30,40
+exit
+
+interface Ethernet 0/1
+switchport mode access
+switchport access vlan 20
+exit
+
+interface Ethernet 0/2
+switchport mode access
+switchport access vlan 20
+exit
+
+
 ip dhcp snooping
-no ip domain-lookup
-ip cef    
-no ipv6 cef
-        
-spanning-tree mode pvst
-spanning-tree extend system-id
-        
+ip dhcp snooping vlan 20
+
+no ip dhcp snooping information option
+
 interface Ethernet0/0
- switchport trunk encapsulation dot1q
- switchport mode trunk
- ip arp inspection trust
- ip verify source
- ip dhcp snooping trust
-        
-interface Ethernet0/1
- switchport access vlan 20
- switchport mode access
- ip verify source
-        
-interface Ethernet0/2
- switchport access vlan 20
- switchport mode access
- ip verify source
-       
-interface Ethernet0/3         
-interface Ethernet1/0        
-interface Ethernet1/1        
-interface Ethernet1/2        
-interface Ethernet1/3        
-interface Ethernet2/0       
-interface Ethernet2/1         
-interface Ethernet2/2         
-interface Ethernet2/3        
-interface Ethernet3/0         
-interface Ethernet3/1     
-interface Ethernet3/2         
-interface Ethernet3/3    
-    
-interface Vlan1
- no ip address
- shutdown 
-      
-ip forward-protocol nd
-        
-ip tcp synwait-time 5
-ip http server
-ip http secure-server
-         
-ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
-ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
-         
-control-plane
-line con 0
- exec-timeout 0 0
- privilege level 15
- logging synchronous
-line aux 0
- exec-timeout 0 0
- privilege level 15
- logging synchronous
-line vty 0 4
- login    
-         
-end
+ip dhcp snooping trust
+exit
 
 
+ip arp inspection vlan 20
+
+interface Ethernet 0/0
+ip arp inspection trust
+exit
+
+
+interface ethernet 0/1
+ip verify source
+ip device tracking maximum 2
+switchport port-security maximum 2
+ip verify source port-security
+exit
+
+interface ethernet 0/2
+ip verify source
+ip device tracking maximum 2
+switchport port-security maximum 2
+ip verify source port-security
+exit
